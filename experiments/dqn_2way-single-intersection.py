@@ -4,7 +4,7 @@ import sys
 import gymnasium as gym
 from stable_baselines3.dqn.dqn import DQN
 
-
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
     sys.path.append(tools)
@@ -17,12 +17,12 @@ from sumo_rl import SumoEnvironment
 
 if __name__ == "__main__":
     env = SumoEnvironment(
-        net_file="nets/2way-single-intersection/single-intersection.net.xml",
-        route_file="nets/2way-single-intersection/single-intersection-vhvh.rou.xml",
+        net_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/2way-single-intersection/single-intersection.net.xml",
+        route_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/2way-single-intersection/single-intersection-vhvh.rou.xml",
         out_csv_name="outputs/2way-single-intersection/dqn",
         single_agent=True,
-        use_gui=True,
-        num_seconds=100000,
+        use_gui=False,
+        num_seconds=10000,
     )
 
     model = DQN(
@@ -36,4 +36,4 @@ if __name__ == "__main__":
         exploration_final_eps=0.01,
         verbose=1,
     )
-    model.learn(total_timesteps=100000)
+    model.learn(total_timesteps=10000)

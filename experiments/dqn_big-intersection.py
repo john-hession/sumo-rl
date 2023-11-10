@@ -3,6 +3,7 @@ import sys
 
 import gymnasium as gym
 
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
 
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
@@ -11,33 +12,36 @@ else:
     sys.exit("Please declare the environment variable 'SUMO_HOME'")
 import numpy as np
 import traci
-from stable_baselines3.dqn.dqn import DQN
+from stable_baselines3.ppo.ppo import PPO
 
 from sumo_rl import SumoEnvironment
 
 
 env = SumoEnvironment(
-    net_file="nets/big-intersection/big-intersection.net.xml",
+    net_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/big-intersection/big-intersection.net.xml",
+    route_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/big-intersection/routes.rou.xml",
     single_agent=True,
-    route_file="nets/big-intersection/routes.rou.xml",
     out_csv_name="outputs/big-intersection/dqn",
-    use_gui=True,
+    use_gui=False,
     num_seconds=5400,
     yellow_time=4,
     min_green=5,
     max_green=60,
 )
 
-model = DQN(
+model = PPO(
     env=env,
     policy="MlpPolicy",
-    learning_rate=1e-3,
-    learning_starts=0,
-    buffer_size=50000,
-    train_freq=1,
-    target_update_interval=500,
-    exploration_fraction=0.05,
-    exploration_final_eps=0.01,
-    verbose=1,
+        verbose=3,
+        gamma=0.95,
+        n_steps=256,
+        ent_coef=0.0905168,
+        learning_rate=0.00062211,
+        vf_coef=0.042202,
+        max_grad_norm=0.9,
+        gae_lambda=0.99,
+        n_epochs=5,
+        clip_range=0.3,
+        batch_size=256,
 )
-model.learn(total_timesteps=100000)
+model.learn(total_timesteps=10000)

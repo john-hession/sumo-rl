@@ -1,6 +1,7 @@
 import os
 import sys
 
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
 
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
@@ -17,7 +18,6 @@ from ray.rllib.env.wrappers.pettingzoo_env import ParallelPettingZooEnv
 from ray.tune.registry import register_env
 
 import sumo_rl
-
 
 if __name__ == "__main__":
     ray.init()
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     tune.run(
         "PPO",
         name="PPO",
-        stop={"timesteps_total": 100000},
+        stop={"timesteps_total": 10000},
         checkpoint_freq=10,
         local_dir="~/ray_results/" + env_name,
         config=config.to_dict(),

@@ -16,7 +16,7 @@ def get_version():
     raise RuntimeError("bad version data in __init__.py")
 
 
-setup(name="sumo-rl", version=get_version(), long_description=open("README.md").read())
+setup(name="sumo-rl", version=get_version(), long_description=open("/Users/jakehession/Desktop/Ecotech/sumo-rl/README.md").read())
 
 # python setup.py sdist
 # python setup.py bdist_wheel

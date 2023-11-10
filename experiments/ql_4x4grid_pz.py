@@ -4,7 +4,7 @@ import sys
 
 import pandas as pd
 
-
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
     sys.path.append(tools)

@@ -2,6 +2,8 @@ import argparse
 import glob
 from itertools import cycle
 
+import matplotlib
+import latex
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

@@ -12,13 +12,15 @@ from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.vec_env import VecMonitor
 from tqdm import trange
 
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
+
 import sumo_rl
 
 
 if __name__ == "__main__":
     RESOLUTION = (3200, 1800)
 
-    env = sumo_rl.grid4x4(use_gui=True, out_csv_name="outputs/grid4x4/ppo_test", virtual_display=RESOLUTION)
+    env = sumo_rl.grid4x4(use_gui=False, out_csv_name="outputs/grid4x4/ppo_test", virtual_display=RESOLUTION)
 
     max_time = env.unwrapped.env.sim_max_time
     delta_time = env.unwrapped.env.delta_time
