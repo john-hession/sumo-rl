@@ -3,7 +3,7 @@ import sys
 
 import gymnasium as gym
 
-os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo" # change to your SUMO_HOME path
 
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
@@ -12,13 +12,13 @@ else:
     sys.exit("Please declare the environment variable 'SUMO_HOME'")
 import numpy as np
 import traci
-from stable_baselines3.ppo.ppo import PPO
-
+from stable_baselines3.ppo.ppo import PPO #changed the DQN to PPO, more resource intensive but policy converges in fewer iterations
+# changed the reward_fn in the env file contained in sumo_rl folder
 from sumo_rl import SumoEnvironment
 
 
 env = SumoEnvironment(
-    net_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/big-intersection/big-intersection.net.xml",
+    net_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/big-intersection/big-intersection.net.xml", # still need to add the version with john's net
     route_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/big-intersection/routes.rou.xml",
     single_agent=True,
     out_csv_name="outputs/big-intersection/dqn",
