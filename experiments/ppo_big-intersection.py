@@ -18,15 +18,15 @@ from sumo_rl import SumoEnvironment
 
 
 env = SumoEnvironment(
-    net_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/big-intersection/big-intersection.net.xml", # still need to add the version with john's net
-    route_file="/Users/jakehession/Desktop/Ecotech/sumo-rl/nets/big-intersection/routes.rou.xml",
+    net_file="sumo-rl/nets/big-intersection/big-intersection.net.xml", # still need to add the version with john's net
+    route_file="sumo-rl/nets/big-intersection/routes.rou.xml",
     single_agent=True,
-    out_csv_name="outputs/big-intersection/dqn",
+    out_csv_name="outputs/big-intersection/ppo",
     use_gui=False,
-    num_seconds=5400,
+    num_seconds=3000,
     yellow_time=4,
-    min_green=5,
-    max_green=60,
+    min_green=20,
+    max_green=120, # changed to max 120 per mick's rec
 )
 
 model = PPO(
