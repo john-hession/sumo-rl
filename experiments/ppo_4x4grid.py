@@ -16,6 +16,7 @@ from ray import tune
 from ray.rllib.algorithms.ppo import PPOConfig
 from ray.rllib.env.wrappers.pettingzoo_env import ParallelPettingZooEnv
 from ray.tune.registry import register_env
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
 
 import sumo_rl
 
@@ -30,9 +31,9 @@ if __name__ == "__main__":
             sumo_rl.parallel_env(
                 net_file="nets/4x4-Lucas/4x4.net.xml",
                 route_file="nets/4x4-Lucas/4x4c1c2c1c2.rou.xml",
-                out_csv_name="outputs/4x4grid/ppo",
+                out_csv_name="~/ray_results/4x4grid/PPO",
                 use_gui=False,
-                num_seconds=80000,
+                num_seconds=10000,
             )
         ),
     )

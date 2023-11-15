@@ -496,7 +496,7 @@ class SumoEnvironmentPZ(AECEnv, EzPickle):
 
     metadata = {"render.modes": ["human", "rgb_array"], "name": "sumo_rl_v0", "is_parallelizable": True}
 
-    def __init__(self, **kwargs):
+    def __init__(self, render_mode=None, **kwargs):
         """Initialize the environment."""
         EzPickle.__init__(self, **kwargs)
         self._kwargs = kwargs
@@ -572,10 +572,10 @@ class SumoEnvironmentPZ(AECEnv, EzPickle):
         if self.truncations[self.agent_selection] or self.terminations[self.agent_selection]:
             return self._was_dead_step(action)
         agent = self.agent_selection
-        if not self.action_spaces[agent].contains(action):
+        if not self.action_space(agent).contains(action):  # changed from self.action_spaces[agent]
             raise Exception(
                 "Action for agent {} must be in Discrete({})."
-                "It is currently {}".format(agent, self.action_spaces[agent].n, action)
+                "It is currently {}".format(agent, self.action_space(agent).n, action) # changed from self.action_spaces[agent]
             )
 
         self.env._apply_actions({agent: action})
