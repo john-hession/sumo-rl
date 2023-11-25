@@ -20,7 +20,7 @@ import sumo_rl
 if __name__ == "__main__":
     RESOLUTION = (3200, 1800)
 
-    env = sumo_rl.grid4x4(use_gui=False, out_csv_name="outputs/grid4x4/ppo_test", virtual_display=RESOLUTION)
+    env = sumo_rl.arterial4x4(use_gui=False, out_csv_name="outputs/grid4x4/ppo_test", virtual_display=RESOLUTION)
 
     max_time = env.unwrapped.env.sim_max_time
     delta_time = env.unwrapped.env.delta_time
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
     # Maximum number of steps before reset, +1 because I'm scared of OBOE
     print("Starting rendering")
-    num_steps = (max_time // delta_time) # + 1
+    num_steps = (max_time // delta_time) + 1
 
     obs = env.reset()
 
@@ -67,19 +67,18 @@ if __name__ == "__main__":
         shutil.rmtree("temp")
 
     os.mkdir("temp")
-    #img = disp.grab()
-   # img.save(f"temp/img0.jpg")
+    # img = disp.grab()
+    # img.save(f"temp/img0.jpg")
 
     img = env.render()
     for t in trange(num_steps):
         actions, _ = model.predict(obs, state=None, deterministic=False)
-        obs, reward, done, info = env.step(actions)
-        img = env.render()
-        if img:
-            img.save(f"temp/img{t}.jpg")
+#         obs, reward, done, info = env.step(actions)
+#         img = env.render()
+#         # img.save(f"temp/img{t}.jpg")
 
-    subprocess.run(["ffmpeg", "-y", "-framerate", "5", "-i", "temp/img%d.jpg", "output.mp4"])
+#   #  subprocess.run(["ffmpeg", "-y", "-framerate", "5", "-i", "temp/img%d.jpg", "output.mp4"])
 
     print("All done, cleaning up")
-  #  shutil.rmtree("temp")
+    shutil.rmtree("temp")
     env.close()
