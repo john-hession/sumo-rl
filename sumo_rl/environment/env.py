@@ -496,7 +496,7 @@ class SumoEnvironmentPZ(AECEnv, EzPickle):
 
     metadata = {"render.modes": ["human", "rgb_array"], "name": "sumo_rl_v0", "is_parallelizable": True}
 
-    def __init__(self, render_mode=None, **kwargs):
+    def __init__(self, render_mode="human", **kwargs):
         """Initialize the environment."""
         EzPickle.__init__(self, **kwargs)
         self._kwargs = kwargs

@@ -20,7 +20,7 @@ import sumo_rl
 if __name__ == "__main__":
     RESOLUTION = (3200, 1800)
 
-    env = sumo_rl.grid4x4(use_gui=False, out_csv_name="outputs/grid4x4/ppo_test", virtual_display=RESOLUTION)
+    env = sumo_rl.grid4x4(use_gui=True, out_csv_name="outputs/grid4x4/ppo_test", virtual_display=RESOLUTION, render_mode = 'human')
 
     max_time = env.unwrapped.env.sim_max_time
     delta_time = env.unwrapped.env.delta_time
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     )
 
     print("Starting training")
-    model.learn(total_timesteps=50000)
+    model.learn(total_timesteps=5000)
 
     print("Training finished. Starting evaluation")
     mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=1)
@@ -57,9 +57,11 @@ if __name__ == "__main__":
     print(mean_reward)
     print(std_reward)
 
+    model.save('./saved/grid_4x4/ppo_models')
+    print('saved_model')
     # Maximum number of steps before reset, +1 because I'm scared of OBOE
     print("Starting rendering")
-    num_steps = (max_time // delta_time) # + 1
+    num_steps = (max_time // delta_time) + 1
 
     obs = env.reset()
 
@@ -74,12 +76,11 @@ if __name__ == "__main__":
     for t in trange(num_steps):
         actions, _ = model.predict(obs, state=None, deterministic=False)
         obs, reward, done, info = env.step(actions)
-        img = env.render()
-        if img:
-            img.save(f"temp/img{t}.jpg")
+    #    img = env.render()
+ #       img.save(f"temp/img{t}.jpg")
 
-    subprocess.run(["ffmpeg", "-y", "-framerate", "5", "-i", "temp/img%d.jpg", "output.mp4"])
+   # subprocess.run(["ffmpeg", "-y", "-framerate", "5", "-i", "temp/img%d.jpg", "output.mp4"])
 
     print("All done, cleaning up")
-  #  shutil.rmtree("temp")
+    shutil.rmtree("temp")
     env.close()
