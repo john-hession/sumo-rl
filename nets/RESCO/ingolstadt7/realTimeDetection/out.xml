@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-13 10:49:33 by Eclipse SUMO sumo Version 1.18.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="ingolstadt7.net.xml"/>
+        <route-files value="ingolstadt7.rou.xml"/>
+        <additional-files value="induction.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="57600"/>
+        <end value="61200"/>
+    </time>
+
+    <traci_server>
+        <remote-port value="53276"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+    <interval begin="57600.00" end="58500.00" id="testSensor" nVehContrib="29" flow="116.00" occupancy="5.09" speed="3.27" harmonicMeanSpeed="3.17" length="5.00" nVehEntered="29"/>
+    <interval begin="57600.00" end="58500.00" id="testSensor2" nVehContrib="88" flow="352.00" occupancy="18.29" speed="5.13" harmonicMeanSpeed="2.79" length="5.00" nVehEntered="102"/>
+    <interval begin="58500.00" end="59400.00" id="testSensor" nVehContrib="46" flow="184.00" occupancy="9.58" speed="3.01" harmonicMeanSpeed="2.67" length="5.00" nVehEntered="46"/>
+    <interval begin="58500.00" end="59400.00" id="testSensor2" nVehContrib="83" flow="332.00" occupancy="16.42" speed="5.11" harmonicMeanSpeed="2.86" length="5.00" nVehEntered="89"/>
+    <interval begin="59400.00" end="60300.00" id="testSensor" nVehContrib="37" flow="148.00" occupancy="7.10" speed="3.04" harmonicMeanSpeed="2.90" length="5.00" nVehEntered="37"/>
+    <interval begin="59400.00" end="60300.00" id="testSensor2" nVehContrib="114" flow="456.00" occupancy="30.72" speed="4.84" harmonicMeanSpeed="2.80" length="5.00" nVehEntered="130"/>
+    <interval begin="60300.00" end="61200.00" id="testSensor" nVehContrib="35" flow="140.00" occupancy="18.65" speed="2.71" harmonicMeanSpeed="1.04" length="5.00" nVehEntered="35"/>
+    <interval begin="60300.00" end="61200.00" id="testSensor2" nVehContrib="85" flow="340.00" occupancy="36.07" speed="4.62" harmonicMeanSpeed="1.41" length="5.00" nVehEntered="96"/>
+    <interval begin="61200.00" end="62100.00" id="testSensor" nVehContrib="27" flow="108.00" occupancy="6.46" speed="2.75" harmonicMeanSpeed="2.32" length="5.00" nVehEntered="27"/>
+    <interval begin="61200.00" end="62100.00" id="testSensor2" nVehContrib="31" flow="124.00" occupancy="8.97" speed="4.20" harmonicMeanSpeed="1.50" length="5.00" nVehEntered="35"/>
+    <interval begin="62100.00" end="62242.00" id="testSensor" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="62100.00" end="62242.00" id="testSensor2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+</detector>

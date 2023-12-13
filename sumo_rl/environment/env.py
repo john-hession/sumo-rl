@@ -103,7 +103,7 @@ class SumoEnvironment(gym.Env):
         fixed_ts: bool = False,
         sumo_warnings: bool = True,
         additional_sumo_cmd: Optional[str] = None,
-        render_mode: Optional[str] = None,
+        render_mode: Optional[str] = "human",
     ) -> None:
         """Initialize the environment."""
         assert render_mode is None or render_mode in self.metadata["render_modes"], "Invalid render mode."
