@@ -10,12 +10,17 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.vec_env import VecMonitor
+from stable_baselines3.common.callbacks import BaseCallback
 from tqdm import trange
+
+os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
+
+
+#os.environ["LIBSUMO_AS_TRACI"] = '1'
 
 import sumo_rl
 import pandas
 
-os.environ["SUMO_HOME"] = "/opt/homebrew/opt/sumo/share/sumo"
 
 RESOLUTION = (3200, 1800)
 
@@ -50,8 +55,27 @@ model = PPO(
     tensorboard_log="./logs/ingolstadt7/ppo_test",
 )
 
+class TensorboardCallback(BaseCallback, EnvironmentError):
+    """
+    Custom callback for plotting additional values in tensorboard.
+    """
+
+    def __init__(self, verbose=0):
+        super().__init__(verbose)
+
+    def _on_step(self) -> bool:
+        # Log scalar value (here a random variable)
+        # how to get pressue, avg wait, etc.??
+        # all in the traffic signal file, tried importing fns but can't access the env's TrafficSignal object. 
+        # maybe use accumulate_rewards for multiagent??
+        # gotta look in the PZ env, maybe write a method to get the signal states?
+        # 
+        pressure = 2
+        self.logger.record("pressure", pressure)
+        return True
+
 print("Starting training")
-model.learn(total_timesteps=500000)
+model.learn(total_timesteps=5000, callback=TensorboardCallback(env))
 
 print("Training finished. Starting evaluation")
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=1)
@@ -85,10 +109,10 @@ for t in trange(num_steps):
     # img = env.render()
     # img.save(f"temp/img{t}.jpg")
 
-subprocess.run(["ffmpeg", "-y", "-framerate", "5", "-i", "temp/img%d.jpg", "output.mp4"])
+#subprocess.run(["ffmpeg", "-y", "-framerate", "5", "-i", "temp/img%d.jpg", "output.mp4"])
 model.save("model.zip")
-df = pandas.DataFrame(data={"obs": obs_lst, "reward": reward_lst, "done": done_lst, "info": info_lst})
-df.to_csv('output.csv')
+#df = pandas.DataFrame(data={"obs": obs_lst, "reward": reward_lst, "done": done_lst, "info": info_lst})
+#df.to_csv('output.csv')
 print("All done, cleaning up")
 shutil.rmtree("temp")
 env.close()

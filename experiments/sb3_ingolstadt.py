@@ -20,7 +20,7 @@ import sumo_rl
 if __name__ == "__main__":
     RESOLUTION = (3200, 1800)
 
-    env = sumo_rl.ingolstadt7(sumo_warnings=False, use_gui = False)
+    env = sumo_rl.ingolstadt7(sumo_warnings=False, use_gui = True, render_mode='human')
     max_time = env.unwrapped.env.sim_max_time
     delta_time = env.unwrapped.env.delta_time
 
